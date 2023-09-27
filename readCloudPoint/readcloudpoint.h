@@ -18,7 +18,7 @@ public:
     readCloudPoint(QWidget *parent = nullptr);
     ~readCloudPoint();
     void init();
-    void readfile(const std::string& file_path, std::vector<QVector3D>& cloud);
+    void readfile(const std::string& file_path, std::vector<QVector4D>& cloud);
 public slots:
     void slot_btn_clicked();
 private:

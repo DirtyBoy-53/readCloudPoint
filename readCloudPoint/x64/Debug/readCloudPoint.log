@@ -1,2 +1,5 @@
-﻿  cpointviewer.cpp
+﻿  viewer.cpp
+F:\Compile\PCL 1.13.1\3rdParty\Eigen\eigen3\Eigen\src\Core\arch\Default\Half.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Compile\PCL 1.13.1\3rdParty\Eigen\eigen3\Eigen\src\Core\arch\Default\BFloat16.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+F:\Compile\PCL 1.13.1\3rdParty\Eigen\eigen3\Eigen\src\Core\arch\Default\GenericPacketMathFunctions.h(676,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   readCloudPoint.vcxproj -> D:\Software\VS2022\readCloudPoint\x64\Debug\readCloudPoint.exe

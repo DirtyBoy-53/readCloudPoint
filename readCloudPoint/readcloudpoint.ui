@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -41,6 +41,18 @@
        <attribute name="title">
         <string>Tab 2</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="Viewer" name="openGLWidget_2"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_chosefile_2">
+          <property name="text">
+           <string>选择文件</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -72,6 +84,11 @@
    <class>CPointViewer</class>
    <extends>QOpenGLWidget</extends>
    <header>cpointviewer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Viewer</class>
+   <extends>QOpenGLWidget</extends>
+   <header>viewer.h</header>
   </customwidget>
  </customwidgets>
  <resources>

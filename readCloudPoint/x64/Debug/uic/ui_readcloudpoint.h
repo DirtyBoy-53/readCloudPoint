@@ -21,6 +21,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "cpointviewer.h"
+#include "viewer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -35,6 +36,9 @@ public:
     CPointViewer *openGLWidget;
     QPushButton *btn_chosefile;
     QWidget *tab_2;
+    QVBoxLayout *verticalLayout_2;
+    Viewer *openGLWidget_2;
+    QPushButton *btn_chosefile_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -71,6 +75,20 @@ public:
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        verticalLayout_2 = new QVBoxLayout(tab_2);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        openGLWidget_2 = new Viewer(tab_2);
+        openGLWidget_2->setObjectName(QString::fromUtf8("openGLWidget_2"));
+
+        verticalLayout_2->addWidget(openGLWidget_2);
+
+        btn_chosefile_2 = new QPushButton(tab_2);
+        btn_chosefile_2->setObjectName(QString::fromUtf8("btn_chosefile_2"));
+
+        verticalLayout_2->addWidget(btn_chosefile_2);
+
         tabWidget->addTab(tab_2, QString());
 
         gridLayout->addWidget(tabWidget, 0, 0, 1, 1);
@@ -89,7 +107,7 @@ public:
 
         retranslateUi(readCloudPointClass);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(readCloudPointClass);
@@ -100,6 +118,7 @@ public:
         readCloudPointClass->setWindowTitle(QCoreApplication::translate("readCloudPointClass", "readCloudPoint", nullptr));
         btn_chosefile->setText(QCoreApplication::translate("readCloudPointClass", "\351\200\211\346\213\251\346\226\207\344\273\266", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("readCloudPointClass", "Tab 1", nullptr));
+        btn_chosefile_2->setText(QCoreApplication::translate("readCloudPointClass", "\351\200\211\346\213\251\346\226\207\344\273\266", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("readCloudPointClass", "Tab 2", nullptr));
     } // retranslateUi
 

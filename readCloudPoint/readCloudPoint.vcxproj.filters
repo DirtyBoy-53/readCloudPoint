@@ -46,14 +46,29 @@
     <ClCompile Include="minboundingbox.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="viewer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="cpointviewer.h">
       <Filter>头文件</Filter>
     </QtMoc>
+    <QtMoc Include="viewer.h">
+      <Filter>头文件</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="minboundingbox.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mathtypes.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="array.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="object.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

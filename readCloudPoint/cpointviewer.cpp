@@ -58,7 +58,7 @@ void CPointViewer::showPointCloud(const std::vector<QVector3D>& cloud)
     initPointCloud(cloud);
     changePointCloud();
 
-    //    ResetView();
+    //ResetView();
     repaint();
     debugMsg("showPointCloud =", startTime);
 }
@@ -71,9 +71,9 @@ void CPointViewer::initPointCloud(const std::vector<QVector3D>& cloud)
     for (int i = 0; i < cloud.size(); i++)
     {
         //move cloud center to origin
-        m_PointsVertex[i].pos[0] = (cloud[i].x() - m_box.getCenterPoint().x());
-        m_PointsVertex[i].pos[1] = (cloud[i].y() - m_box.getCenterPoint().y());
-        m_PointsVertex[i].pos[2] = (cloud[i].z() - m_box.getCenterPoint().z());
+        m_PointsVertex[i].pos[0] = cloud[i].x() - m_box.getCenterPoint().x();
+        m_PointsVertex[i].pos[1] = cloud[i].y() - m_box.getCenterPoint().y();
+        m_PointsVertex[i].pos[2] = cloud[i].z() - m_box.getCenterPoint().z();
         gray2Pseudocolor(cloud[i], m_PointsVertex[i].color);
         m_PointsVertex[i].normal[0] = 0.0f;
         m_PointsVertex[i].normal[1] = 1.0f;
@@ -115,14 +115,14 @@ void CPointViewer::gray2Pseudocolor(const QVector3D pos, float color[4])
         g = 0;
         b = 255;
     }
-    color[0] = r * 1.0f / 255;
-    color[1] = g * 1.0f / 255;
-    color[2] = b * 1.0f / 255;
-    color[3] = 1.0f;
-    //color[0] = 1.0f;
-    //color[1] = 0.0f;
-    //color[2] = 0.0f;
+    //color[0] = r * 1.0f / 255;
+    //color[1] = g * 1.0f / 255;
+    //color[2] = b * 1.0f / 255;
     //color[3] = 1.0f;
+    color[0] = 1.0f;
+    color[1] = 0.0f;
+    color[2] = 0.0f;
+    color[3] = 1.0f;
 }
 
 void CPointViewer::changePointCloud()
@@ -186,7 +186,7 @@ void CPointViewer::initializeGL()
     glGenBuffers(1, &m_VBO);
 
     //init need import a point data
-    initCloud(10);
+    initCloud(100);
     changePointCloud();
     QObject::connect(m_Timer, SIGNAL(timeout()), this, SLOT(onTimerOut()));
     m_Timer->start(30);
@@ -262,7 +262,11 @@ void CPointViewer::initCloud(int count)
         //point.color[0] = m_backgroundColor.x();
         //point.color[1] = m_backgroundColor.y();
         //point.color[2] = m_backgroundColor.z();
-        //point.color[3] = m_backgroundColor.w();
+        //point.color[3] = m_backgroundColor.w();        
+        point.color[0] = 0.0f;
+        point.color[1] = 0.0f;
+        point.color[2] = 1.0f;
+        point.color[3] = 1.0f;
         point.normal[0] = 0.0f;
         point.normal[1] = 1.0f;
         point.normal[2] = 0.0f;
@@ -397,8 +401,8 @@ void CPointViewer::modelZoomInOrOut(bool ZoomInOrOut)
     }
     else {                  //zoom out
         m_scale *= 0.9f;
-        if (m_scale < 0.5f)
-            m_scale = 0.5f;
+        //if (m_scale < 0.5f)
+        //    m_scale = 0.5f;
     }
 }
 
