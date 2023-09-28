@@ -2,7 +2,6 @@
 #define Viewer_H
 #include <QObject>
 #include <QDateTime>
-#include "object.h"
 #include "QGLViewer/qglviewer.h"
 #include <QWidget>
 #include <QPushButton>
@@ -75,46 +74,11 @@ struct PointView
     QDateTime frameTime;
     pcl::PointCloud<PointXYZI>::Ptr pointsPtr;
 
-    PointView()
-    {
+    PointView() {
         pointsPtr = std::make_shared<PointCloud<PointXYZI> >();
-        //sPointsLeft = std::make_shared<PointCloud<PointXYZI>>();
-        //sPointsRight = std::make_shared<PointCloud<PointXYZI>>();
     }
-
-    //    PointView(QDateTime time, PointCloud<PointXYZ>::Ptr vehCloud, PointCloud<PointXYZ>::Ptr groundCloud,
-    //        QVector<shared_ptr<TrackerBase>> trackers, QVector<PointCloudCluster> clusters)
-    //    {
-    //        FrameTime = time;
-    //        List_VehPoints = vehCloud;
-    //        List_GroundPoints = groundCloud;
-    //        Vec_Trackers = trackers;
-    //        Vec_Cluster = clusters;
-    //    }
 };
 
-/*
-class Particle {
-public:
-    Particle();
-
-    void init();
-    void draw();
-    void animate();
-    void getData();
-    void getDataV();
-    void drawV();
-
-    int n_datax[640];
-    int n_datay[640];
-    int n_dataz[10];
-    int cnt;
-private:
-    qglviewer::Vec speed_, pos_;
-    int age_, ageMax_;
-
-};
-*/
 class VVAssistant : public QObject
 {
     Q_OBJECT
@@ -181,79 +145,46 @@ public:
     Viewer(QWidget* parent = 0, int slot = 0, bool needAssitant = false);
 
     QList<int> QL_ViewerSelectIds;
-    void setview(ENUM_VIEW view);
-    void draGridAndCircular();
+    void setView(ENUM_VIEW view);
+    void drawCoordinates();
+    void set_projection_mode(Camera::Type model);
     
 protected:
-    virtual void draw();
+    //must overload
     virtual void init();
-    virtual void animate();
-    virtual QString helpString() const;
+    virtual void draw();
+    virtual void resizeGL(int w, int h);
 
-
-    //// Mouse events functions
+    // Mouse events functions
     virtual void mousePressEvent(QMouseEvent* e);
     virtual void mouseMoveEvent(QMouseEvent* e);
     virtual void mouseReleaseEvent(QMouseEvent* e);
-    virtual void mouseDoubleClickEvent(QMouseEvent* event);
-    void reSize();
-    virtual void resizeGL(int w, int h);
-    virtual bool eventFilter(QObject* watched, QEvent* event);
 
-    //function
-    void displayText();
+    virtual void postSelection(const QPoint& point);
 
 private:
-
-    void paintControl();
-
-    void drawSelectionRectangle() const;
-
-    // Current rectangular selection
-    QRect _rectangle;
-
-    QList<Object> _objects;
-    QList<int> _selection;
-    bool _isSelect;
+    int _nGrid = 10;//圆圈数以及网格数/2
+    float _gridR = 10.0f;//网格最小圆半径以及网格单位长度
 
     st_point _findP;
-    bool _find;
-
-    int _nGrid = 10;
-    float _gridR = 10.f;
+    bool _find{ false };
 
     QDateTime _frameTime;
     PointCloud<PointXYZI>::Ptr _mPointsPtr;
-
-    bool m_fullScreen;
-    Qt::WindowFlags m_lastWindowFlags;
-    QRect m_lastGeometry;
-    QPushButton* m_btnPlay;
-    QPushButton* m_btnRecord;
-    QPushButton* m_btnShot;
-
-
-    bool m_hasPlayed = false;
-    bool m_hasRecorded = false;
-    bool m_hasReplayed = false;
-
-    int nGrid = 10;//圆圈数以及网格数/2
-    float gridR = 10.0f;//网格最小圆半径以及网格单位长度
-    float axisR = 10.0f;//坐标系长度
-
     VVAssistant* m_assistant;
+
+    void set_display_text(QVector2D& pos, QString& content);
+
+    void drawSelectionRectangle() const;
+
 signals:
-    //    void signal_select_done(PointCloud<PointXYZ>::Ptr);
-    bool signal_play_radar(bool doPlay);
-    bool signal_record_radar(bool doRecord);
+
+
 public slots:
     //void updateView(QList<PointXYZ> plistPoints, QVector<PointCloudCluster> pvecCluster);
     void updateViewMaster(PointView);
-    void updateViewMasterX();
     void drawGridAndCircular();
     void convertRgbByIntensity(float intensity, float& r, float& g, float& b);
-    void videoControl(QWidget* type);
-    void showOneFrame(PointView pv);
-    void slot_hide_icon(bool state);
+
 };
 #endif // Viewer_H

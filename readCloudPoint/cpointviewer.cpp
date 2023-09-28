@@ -186,8 +186,8 @@ void CPointViewer::initializeGL()
     glGenBuffers(1, &m_VBO);
 
     //init need import a point data
-    initCloud(100);
-    changePointCloud();
+    initCloud(10000000);
+    //changePointCloud();
     QObject::connect(m_Timer, SIGNAL(timeout()), this, SLOT(onTimerOut()));
     m_Timer->start(30);
 }
@@ -216,7 +216,8 @@ void CPointViewer::paintGL()
     m_Program->bind();
     glClearColor(m_backgroundColor.x(), m_backgroundColor.y(), m_backgroundColor.z(), m_backgroundColor.w());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BITS);
-
+    glPointSize(3.0f);
+   
     OpenGLCore->glBindVertexArray(m_VAO);
     setMatrixUniform();
     glDrawArrays(GL_POINTS, 0, (GLsizei)m_PointsVertex.size());
@@ -224,6 +225,8 @@ void CPointViewer::paintGL()
     qDebug() << "point_size:" << m_PointsVertex.size();
     OpenGLCore->glBindVertexArray(0);
     m_Program->release();
+
+
 }
 
 void CPointViewer::setMatrixUniform()

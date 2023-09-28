@@ -72,7 +72,10 @@ void readCloudPoint::slot_btn_clicked()
     qDebug() << "point_size:" << _vecPoints.size();
     float x, y, z, intensity;
     std::shared_ptr<pcl::PointCloud<PointXYZI>> m_PointsPtr = std::make_shared<PointCloud<PointXYZI>>();
+    std::vector<QVector3D> _pt;
     for (auto i = 0; i < _vecPoints.size(); i++) {
+        QVector3D _vecPt(x, y, z);
+        _pt.emplace_back(_vecPt);
         x = _vecPoints.at(i).x();
         y = _vecPoints.at(i).y();
         z = _vecPoints.at(i).z();
@@ -82,6 +85,7 @@ void readCloudPoint::slot_btn_clicked()
     }
     PointView pv;
     pv.pointsPtr = m_PointsPtr;
-    //ui.openGLWidget->showPointCloud(_vecPoints);
+    
+    //ui.openGLWidget->showPointCloud(_pt);
     ui.openGLWidget_2->updateViewMaster(pv);
 }
