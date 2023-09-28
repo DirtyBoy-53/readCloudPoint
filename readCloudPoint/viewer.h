@@ -146,7 +146,7 @@ public:
 
     QList<int> QL_ViewerSelectIds;
     void setView(ENUM_VIEW view);
-    void drawCoordinates();
+    
     void set_projection_mode(Camera::Type model);
     
 protected:
@@ -174,8 +174,9 @@ private:
     VVAssistant* m_assistant;
 
     void set_display_text(QVector2D& pos, QString& content);
-
-    void drawSelectionRectangle() const;
+    void print_bitmap_string(void* font, const char* s);
+    void drawGLString(float x, float y, float z, const char* cstr);
+    void drawCoordinates();
 
 signals:
 

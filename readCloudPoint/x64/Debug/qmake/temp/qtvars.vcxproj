@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\gd11367-hlw\AppData\Local\Temp\lygbpfe5.nlt;F:\Computer\Qt\5.15.2\msvc2015_64\include;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtOpenGL;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtWidgets;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtOpenGLExtensions;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtGui;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtANGLE;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtXml;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtCore;C:\Users\gd11367-hlw\AppData\Local\Temp\lygbpfe5.nlt;/include;F:\Computer\Qt\5.15.2\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\gd11367-hlw\AppData\Local\Temp\q50h5iil.3uf;F:\Computer\Qt\5.15.2\msvc2015_64\include;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtOpenGL;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtWidgets;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtOpenGLExtensions;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtGui;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtANGLE;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtXml;F:\Computer\Qt\5.15.2\msvc2015_64\include\QtCore;C:\Users\gd11367-hlw\AppData\Local\Temp\q50h5iil.3uf;/include;F:\Computer\Qt\5.15.2\msvc2015_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>.\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>

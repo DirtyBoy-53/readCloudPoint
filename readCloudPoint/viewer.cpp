@@ -4,7 +4,7 @@
 #include "mathtypes.h"
 #include <QGLViewer/manipulatedCameraFrame.h>
 #include <QPushButton>
-
+#include <GL/freeglut.h>
 
 Viewer::Viewer(QWidget* parent, int slot, bool needAssitant) :
     QGLViewer(parent)
@@ -37,7 +37,7 @@ void Viewer::init()
 
     glPointSize(2.0);
     //setGridIsDrawn();//
-    //setAxisIsDrawn();//can`t set axis size
+    //setAxisIsDrawn(true);//can`t set axis size
     
     setFPSIsDisplayed(true);
     startAnimation();
@@ -110,7 +110,7 @@ void Viewer::draw()
         QString str_time = QString("x:%1  y:%2  z:%3").arg(_findP.x).arg(_findP.y).arg(_findP.z);
         set_display_text(pos, str_time);
     }
-
+    drawCoordinates();
 }
 
 void Viewer::drawGridAndCircular()
@@ -255,25 +255,88 @@ void Viewer::postSelection(const QPoint& point)
 }
 
 
+void Viewer::print_bitmap_string(void* font, const char* s)
+{
+    if (s && strlen(s)) {
+        while (*s) {
+            glutBitmapCharacter(font, *s);
+            s++;
+        }
+    }
+}
 
+//绘制2D文字
+void Viewer::drawGLString(float x, float y, float z, const char* cstr)
+{
+    glRasterPos3f(x, y, z);
+    print_bitmap_string(GLUT_BITMAP_HELVETICA_12, cstr);
+}
 void Viewer::drawCoordinates()
 {
-    glLineWidth(3.0f);
-    glColor3f(1.0f, 0.0f, 0.0f); //画红色的x轴
-    glBegin(GL_LINES);
-    glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(1.0f, 0.0f, 0.0f);
-    glEnd();
-    glColor3f(0.0, 1.0, 0.0); //画绿色的y轴
-    glBegin(GL_LINES);
-    glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(0.0f, 1.0f, 0.0f);
-    glEnd();
-    glColor3f(0.0, 0.0, 1.0); //画蓝色的z轴
-    glBegin(GL_LINES);
-    glVertex3f(0.0f, 0.0f, 0.0f);
-    glVertex3f(0.0f, 0.0f, 1.0f);
-    glEnd();
+        int viewport[4];
+        int scissor[4];
+
+        // The viewport and the scissor are changed to fit the lower left
+        // corner. Original values are saved.
+        glGetIntegerv(GL_VIEWPORT, viewport);
+        glGetIntegerv(GL_SCISSOR_BOX, scissor);
+
+        // Axis viewport size, in pixels
+        const int size = 80;
+        glViewport(20, 20, size, size);
+        glScissor(0, 0, size, size);
+
+        // The Z-buffer is cleared to make the axis appear over the
+        // original image.
+        glClear(GL_DEPTH_BUFFER_BIT);
+
+        // Tune for best line rendering
+    //    glDisable(GL_LIGHTING);
+        glLineWidth(2.0);
+
+        glMatrixMode(GL_PROJECTION);
+        glPushMatrix();
+        glLoadIdentity();
+        glOrtho(-1, 1, -1, 1, -1, 1);
+
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glLoadIdentity();
+        glMultMatrixd(camera()->orientation().inverse().matrix());
+
+        glBegin(GL_LINES);
+        glColor3f(1.0, 0.0, 0.0);//红
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(1.0, 0.0, 0.0);
+        
+        glColor3f(1.0, 1.0, 0.0);//黄
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 1.0, 0.0);
+        
+        glColor3f(0.0, 1.0, 0.0);//绿
+        glVertex3f(0.0, 0.0, 0.0);
+        glVertex3f(0.0, 0.0, 1.0);
+        glEnd();
+
+        //绘制文字
+        //glColor3f(1.0, 0.0, 0.0);//红
+        //renderText(1.0, 0.0, 0.0, "X");
+        //glColor3f(1.0, 1.0, 0.0);//黄
+        //renderText(0.0, 1.0, 0.0, "Y");
+        //glColor3f(0.0, 1.0, 0.0);//绿
+        //renderText(0.0, 0.0, 1.0, "Z");
+
+        glMatrixMode(GL_PROJECTION);
+        glPopMatrix();
+
+        glMatrixMode(GL_MODELVIEW);
+        glPopMatrix();
+
+        //  glEnable(GL_LIGHTING);
+
+        // The viewport and the scissor are restored.
+        glScissor(scissor[0], scissor[1], scissor[2], scissor[3]);
+        glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 }
 
 void Viewer::set_projection_mode(Camera::Type model){

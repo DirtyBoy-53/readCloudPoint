@@ -49,12 +49,18 @@
     <ClCompile Include="viewer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="lidarviewerwidget.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="cpointviewer.h">
       <Filter>头文件</Filter>
     </QtMoc>
     <QtMoc Include="viewer.h">
+      <Filter>头文件</Filter>
+    </QtMoc>
+    <QtMoc Include="lidarviewerwidget.h">
       <Filter>头文件</Filter>
     </QtMoc>
   </ItemGroup>
@@ -68,5 +74,10 @@
     <ClInclude Include="array.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="lidarviewerwidget.ui">
+      <Filter>界面文件</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>
