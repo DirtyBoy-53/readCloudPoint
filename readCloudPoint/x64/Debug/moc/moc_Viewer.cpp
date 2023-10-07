@@ -154,8 +154,8 @@ void VVAssistant::signalSetXy(PointView _t1)
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 struct qt_meta_stringdata_Viewer_t {
-    QByteArrayData data[11];
-    char stringdata0[100];
+    QByteArrayData data[21];
+    char stringdata0[234];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -174,12 +174,25 @@ QT_MOC_LITERAL(6, 77, 9), // "intensity"
 QT_MOC_LITERAL(7, 87, 6), // "float&"
 QT_MOC_LITERAL(8, 94, 1), // "r"
 QT_MOC_LITERAL(9, 96, 1), // "g"
-QT_MOC_LITERAL(10, 98, 1) // "b"
+QT_MOC_LITERAL(10, 98, 1), // "b"
+QT_MOC_LITERAL(11, 100, 15), // "set_camera_view"
+QT_MOC_LITERAL(12, 116, 9), // "ENUM_VIEW"
+QT_MOC_LITERAL(13, 126, 4), // "view"
+QT_MOC_LITERAL(14, 131, 19), // "set_projection_mode"
+QT_MOC_LITERAL(15, 151, 12), // "Camera::Type"
+QT_MOC_LITERAL(16, 164, 5), // "model"
+QT_MOC_LITERAL(17, 170, 16), // "set_is_show_grid"
+QT_MOC_LITERAL(18, 187, 5), // "state"
+QT_MOC_LITERAL(19, 193, 17), // "set_is_show_polar"
+QT_MOC_LITERAL(20, 211, 22) // "set_is_show_coordinate"
 
     },
     "Viewer\0updateViewMaster\0\0PointView\0"
     "drawGridAndCircular\0convertRgbByIntensity\0"
-    "intensity\0float&\0r\0g\0b"
+    "intensity\0float&\0r\0g\0b\0set_camera_view\0"
+    "ENUM_VIEW\0view\0set_projection_mode\0"
+    "Camera::Type\0model\0set_is_show_grid\0"
+    "state\0set_is_show_polar\0set_is_show_coordinate"
 };
 #undef QT_MOC_LITERAL
 
@@ -189,7 +202,7 @@ static const uint qt_meta_data_Viewer[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -197,14 +210,24 @@ static const uint qt_meta_data_Viewer[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   29,    2, 0x0a /* Public */,
-       4,    0,   32,    2, 0x0a /* Public */,
-       5,    4,   33,    2, 0x0a /* Public */,
+       1,    1,   54,    2, 0x0a /* Public */,
+       4,    0,   57,    2, 0x0a /* Public */,
+       5,    4,   58,    2, 0x0a /* Public */,
+      11,    1,   67,    2, 0x0a /* Public */,
+      14,    1,   70,    2, 0x0a /* Public */,
+      17,    1,   73,    2, 0x0a /* Public */,
+      19,    1,   76,    2, 0x0a /* Public */,
+      20,    1,   79,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Float, 0x80000000 | 7, 0x80000000 | 7, 0x80000000 | 7,    6,    8,    9,   10,
+    QMetaType::Void, 0x80000000 | 12,   13,
+    QMetaType::Void, 0x80000000 | 15,   16,
+    QMetaType::Void, QMetaType::Bool,   18,
+    QMetaType::Void, QMetaType::Bool,   18,
+    QMetaType::Void, QMetaType::Bool,   18,
 
        0        // eod
 };
@@ -218,6 +241,11 @@ void Viewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 0: _t->updateViewMaster((*reinterpret_cast< PointView(*)>(_a[1]))); break;
         case 1: _t->drawGridAndCircular(); break;
         case 2: _t->convertRgbByIntensity((*reinterpret_cast< float(*)>(_a[1])),(*reinterpret_cast< float(*)>(_a[2])),(*reinterpret_cast< float(*)>(_a[3])),(*reinterpret_cast< float(*)>(_a[4]))); break;
+        case 3: _t->set_camera_view((*reinterpret_cast< ENUM_VIEW(*)>(_a[1]))); break;
+        case 4: _t->set_projection_mode((*reinterpret_cast< Camera::Type(*)>(_a[1]))); break;
+        case 5: _t->set_is_show_grid((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 6: _t->set_is_show_polar((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 7: _t->set_is_show_coordinate((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -252,13 +280,13 @@ int Viewer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 8;
     }
     return _id;
 }

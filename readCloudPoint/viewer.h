@@ -145,9 +145,6 @@ public:
     Viewer(QWidget* parent = 0, int slot = 0, bool needAssitant = false);
 
     QList<int> QL_ViewerSelectIds;
-    void setView(ENUM_VIEW view);
-    
-    void set_projection_mode(Camera::Type model);
     
 protected:
     //must overload
@@ -172,11 +169,14 @@ private:
     QDateTime _frameTime;
     PointCloud<PointXYZI>::Ptr _mPointsPtr;
     VVAssistant* m_assistant;
+    bool m_isShowGrid_flag{ false };
+    bool m_isShowPolar_flag{ false };
+    bool m_isShowCoordinate{ false };
 
     void set_display_text(QVector2D& pos, QString& content);
     void print_bitmap_string(void* font, const char* s);
     void drawGLString(float x, float y, float z, const char* cstr);
-    void drawCoordinates();
+    void drawCoordinate();
 
 signals:
 
@@ -186,6 +186,11 @@ public slots:
     void updateViewMaster(PointView);
     void drawGridAndCircular();
     void convertRgbByIntensity(float intensity, float& r, float& g, float& b);
+    void set_camera_view(ENUM_VIEW view);
+    void set_projection_mode(Camera::Type model);
+    void set_is_show_grid(bool state);
+    void set_is_show_polar(bool state);
+    void set_is_show_coordinate(bool state);
 
 };
 #endif // Viewer_H

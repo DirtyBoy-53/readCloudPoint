@@ -1,8 +1,22 @@
 <RCC>
-    <qresource prefix="/readCloudPoint"/>
     <qresource prefix="/">
         <file>Image/front.png</file>
         <file>Image/right.png</file>
         <file>Image/top.png</file>
+        <file>Image/3735134.png</file>
+        <file>Image/play_gotoend.png</file>
+        <file>Image/play_gotostart.png</file>
+        <file>Image/play_loop.png</file>
+        <file>Image/play_pause.png</file>
+        <file>Image/play_play.png</file>
+        <file>Image/play_seekbackward.png</file>
+        <file>Image/play_seekforward.png</file>
+        <file>Image/showaxis.png</file>
+        <file>Image/web.png</file>
+        <file>Image/orthographic.png</file>
+        <file>Image/perspective.png</file>
+        <file>Image/4186876.png</file>
+        <file>Image/grid.png</file>
+        <file>Image/polar.png</file>
     </qresource>
 </RCC>

@@ -21,6 +21,7 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "cpointviewer.h"
+#include "lidarviewerwidget.h"
 #include "viewer.h"
 
 QT_BEGIN_NAMESPACE
@@ -39,6 +40,9 @@ public:
     QVBoxLayout *verticalLayout_2;
     Viewer *openGLWidget_2;
     QPushButton *btn_chosefile_2;
+    QWidget *tab_3;
+    QGridLayout *gridLayout_2;
+    LidarViewerWidget *widget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -90,6 +94,18 @@ public:
         verticalLayout_2->addWidget(btn_chosefile_2);
 
         tabWidget->addTab(tab_2, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        gridLayout_2 = new QGridLayout(tab_3);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        widget = new LidarViewerWidget(tab_3);
+        widget->setObjectName(QString::fromUtf8("widget"));
+
+        gridLayout_2->addWidget(widget, 0, 0, 1, 1);
+
+        tabWidget->addTab(tab_3, QString());
 
         gridLayout->addWidget(tabWidget, 0, 0, 1, 1);
 
@@ -107,7 +123,7 @@ public:
 
         retranslateUi(readCloudPointClass);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(readCloudPointClass);
@@ -120,6 +136,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab), QCoreApplication::translate("readCloudPointClass", "Tab 1", nullptr));
         btn_chosefile_2->setText(QCoreApplication::translate("readCloudPointClass", "\351\200\211\346\213\251\346\226\207\344\273\266", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("readCloudPointClass", "Tab 2", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("readCloudPointClass", "\347\202\271\344\272\221\346\230\276\347\244\272", nullptr));
     } // retranslateUi
 
 };

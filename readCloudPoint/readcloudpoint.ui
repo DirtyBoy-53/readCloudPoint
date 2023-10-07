@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -51,6 +51,16 @@
            <string>选择文件</string>
           </property>
          </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>点云显示</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="LidarViewerWidget" name="widget" native="true"/>
         </item>
        </layout>
       </widget>
@@ -89,6 +99,12 @@
    <class>Viewer</class>
    <extends>QOpenGLWidget</extends>
    <header>viewer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LidarViewerWidget</class>
+   <extends>QWidget</extends>
+   <header>lidarviewerwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

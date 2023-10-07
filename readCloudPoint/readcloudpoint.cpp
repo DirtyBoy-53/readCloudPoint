@@ -70,7 +70,7 @@ void readCloudPoint::slot_btn_clicked()
     //}
 
     qDebug() << "point_size:" << _vecPoints.size();
-    float x, y, z, intensity;
+    float x{0.0f}, y{ 0.0f }, z{ 0.0f }, intensity{ 0.0f };
     std::shared_ptr<pcl::PointCloud<PointXYZI>> m_PointsPtr = std::make_shared<PointCloud<PointXYZI>>();
     std::vector<QVector3D> _pt;
     for (auto i = 0; i < _vecPoints.size(); i++) {

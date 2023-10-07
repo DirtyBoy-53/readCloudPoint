@@ -30,7 +30,7 @@ void Viewer::init()
     camera()->setZClippingCoefficient(1000.0);
     camera()->setType(Camera::ORTHOGRAPHIC);//default projective mode is ortho
 
-    setView(ENUM_VIEW::Enum_top);
+    set_camera_view(ENUM_VIEW::Enum_top);
 
     float colorrgb[] = { 33, 0, 33 };
     glClearColor(colorrgb[0] / 255, colorrgb[1] / 255, colorrgb[2] / 255, 0.0);
@@ -51,7 +51,7 @@ void Viewer::updateViewMaster(PointView view)
     _mPointsPtr = view.pointsPtr;
 }
 
-void Viewer::setView(ENUM_VIEW view)
+void Viewer::set_camera_view(ENUM_VIEW view)
 {
     setSceneCenter(Vec(0, 0, 0));
     double r = 0.0;
@@ -110,53 +110,62 @@ void Viewer::draw()
         QString str_time = QString("x:%1  y:%2  z:%3").arg(_findP.x).arg(_findP.y).arg(_findP.z);
         set_display_text(pos, str_time);
     }
-    drawCoordinates();
+
+    if(m_isShowCoordinate)
+        drawCoordinate();
 }
 
 void Viewer::drawGridAndCircular()
 {
     float colorrgb[] = { 51, 51, 51 };
     glColor3f(colorrgb[0] / 255.0f, colorrgb[1] / 255.0f, colorrgb[2] / 255.0f);
-    int n = 180; 
-    glLineWidth(1.0);
-    for (int num = 0; num < _nGrid; num++)
-    {
-        n = 100 + 50 * num;
-        glBegin(GL_LINE_STRIP);
-        
-        for (int i = 0; i < n + 1; i++) 
-        {
-            glVertex2f(_gridR * (num + 1) * cos(2 * PI * i / n), _gridR * (num + 1) * sin(2 * PI * i / n));
-            //glVertex3f(R*(num+1)*cos(2 * PI*i / n), gridR*(num+1)*sin(2 * PI*i / n),0.0);
-        }
-        glEnd();
 
-    }
 
     int nbSubdivisions = 2 * _nGrid;
     float size = _gridR * _nGrid;
-    glBegin(GL_LINES);
-
-    for (int i = 0; i <= nbSubdivisions; ++i) {
-        const float pos = size * (2.0 * i / nbSubdivisions - 1.0);
-        glVertex2d(pos, -size);
-        glVertex2d(pos, +size);
-        glVertex2d(-size, pos);
-        glVertex2d(size, pos);
+    if (m_isShowGrid_flag) {
+        glBegin(GL_LINES);
+        for (int i = 0; i <= nbSubdivisions; ++i) {
+            const float pos = size * (2.0 * i / nbSubdivisions - 1.0);
+            glVertex2d(pos, -size);
+            glVertex2d(pos, +size);
+            glVertex2d(-size, pos);
+            glVertex2d(size, pos);
+        }
+        glEnd();
     }
-    glEnd();
 
+    int n = 180; 
+    glLineWidth(1.5);
+    if (m_isShowPolar_flag) {
+        for (int num = 0; num < _nGrid; num++) {
+            n = 100 + 50 * num;
+            glBegin(GL_LINE_STRIP);
 
-    glColor3f(1.0f, 1.0f, 1.0f);
-    QFont font;
-    font.setBold(true);
-    font.setPixelSize(20);
-    for (auto i = 0; i < _nGrid; i++) {
-        renderText(0.0, (i + 1) * _gridR, 0.5, QString("%1m").arg((i + 1) * 10), font);//left
-        renderText(0.0, -(i + 1) * _gridR, 0.5, QString("%1m").arg((i + 1) * 10),font);//right
-        renderText((i + 1) * _gridR, 0.0,  0.5, QString("%1m").arg((i + 1) * 10),font);//up
-        renderText(-(i + 1) * _gridR, 0.0, 0.5, QString("%1m").arg((i + 1) * 10),font);//down
+            for (int i = 0; i < n + 1; i++)
+            {
+                glVertex2f(_gridR * (num + 1) * cos(2 * PI * i / n), _gridR * (num + 1) * sin(2 * PI * i / n));
+                //glVertex3f(R*(num+1)*cos(2 * PI*i / n), gridR*(num+1)*sin(2 * PI*i / n),0.0);
+            }
+            glEnd();
+        }
+        glColor3f(1.0f, 1.0f, 1.0f);
+        QFont font;
+        font.setBold(true);
+        font.setPixelSize(20);
+        for (auto i = 0; i < _nGrid; i++) {
+            renderText(0.0, (i + 1) * _gridR, 0.5, QString("%1m").arg((i + 1) * 10), font);//left
+            renderText(0.0, -(i + 1) * _gridR, 0.5, QString("%1m").arg((i + 1) * 10), font);//right
+            renderText((i + 1) * _gridR, 0.0, 0.5, QString("%1m").arg((i + 1) * 10), font);//up
+            renderText(-(i + 1) * _gridR, 0.0, 0.5, QString("%1m").arg((i + 1) * 10), font);//down
+        }
     }
+    
+
+
+
+
+
 }
 
 void Viewer::convertRgbByIntensity(float intensity, float& r, float& g, float& b)
@@ -223,7 +232,7 @@ void Viewer::mouseMoveEvent(QMouseEvent* e)
 
 void Viewer::mouseReleaseEvent(QMouseEvent* e)
 {
-    QGLViewer::mouseReleaseEvent(e);
+    //QGLViewer::mouseReleaseEvent(e);
 }
 
 void Viewer::postSelection(const QPoint& point)
@@ -271,7 +280,7 @@ void Viewer::drawGLString(float x, float y, float z, const char* cstr)
     glRasterPos3f(x, y, z);
     print_bitmap_string(GLUT_BITMAP_HELVETICA_12, cstr);
 }
-void Viewer::drawCoordinates()
+void Viewer::drawCoordinate()
 {
         int viewport[4];
         int scissor[4];
@@ -342,7 +351,15 @@ void Viewer::drawCoordinates()
 void Viewer::set_projection_mode(Camera::Type model){
         camera()->setType(model);
 }
-
+void Viewer::set_is_show_grid(bool state) {
+    m_isShowGrid_flag = state;
+}
+void Viewer::set_is_show_polar(bool state) {
+    m_isShowPolar_flag = state;
+}
+void Viewer::set_is_show_coordinate(bool state) {
+    m_isShowCoordinate = state;
+}
 
 void Viewer::set_display_text(QVector2D &pos,QString &content) {
 
